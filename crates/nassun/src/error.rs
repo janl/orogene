@@ -77,6 +77,11 @@ pub enum NassunError {
         versions: Vec<String>,
     },
 
+    #[cfg(target_arch = "wasm32")]
+    #[error(transparent)]
+    #[diagnostic(code(node_maintainer::serde_wasm_bindgen::error))]
+    SerdeWasmBindgenError(#[from] serde_wasm_bindgen::Error),
+
     #[cfg(not(target_arch = "wasm32"))]
     #[error(transparent)]
     #[diagnostic(

@@ -60,6 +60,12 @@ pub enum NodeMaintainerError {
     #[diagnostic(code(node_maintainer::kdl::invalid_lockfile_version))]
     InvalidLockfileVersion,
 
+    /// Error from serde_wasm_bindgen
+    #[cfg(target_arch = "wasm32")]
+    #[error(transparent)]
+    #[diagnostic(code(node_maintainer::serde_wasm_bindgen::error))]
+    SerdeWasmBindgenError(#[from] serde_wasm_bindgen::Error),
+
     /// Generic package spec error.
     #[error(transparent)]
     #[diagnostic(transparent)]
@@ -73,7 +79,7 @@ pub enum NodeMaintainerError {
     /// Generic error returned from Nassun.
     #[error(transparent)]
     #[diagnostic(transparent)]
-    NassunError(#[from] nassun::NassunError),
+    NassunError(#[from] nassun::error::NassunError),
 
     // Generic error
     #[error("{0}")]

@@ -6,7 +6,9 @@ use std::task::{Context, Poll};
 use async_compression::futures::bufread::GzipDecoder;
 #[cfg(not(target_arch = "wasm32"))]
 use async_std::io;
-use async_std::io::{BufReader, BufWriter};
+use async_std::io::BufReader;
+#[cfg(not(target_arch = "wasm32"))]
+use async_std::io::BufWriter;
 use async_tar::Archive;
 use futures::prelude::*;
 use ssri::{Integrity, IntegrityChecker};

@@ -1,12 +1,18 @@
 use std::cmp::Ordering;
 use std::collections::{HashMap, HashSet, VecDeque};
-use std::path::{Path, PathBuf};
+use std::path::Path;
+#[cfg(not(target_arch = "wasm32"))]
+use std::path::PathBuf;
 
 #[cfg(not(target_arch = "wasm32"))]
 use async_std::fs;
 use async_std::sync::{Arc, Mutex};
-use futures::{StreamExt, TryFutureExt, TryStreamExt};
-use nassun::{Nassun, NassunOpts, Package, PackageSpec};
+#[cfg(not(target_arch = "wasm32"))]
+use futures::TryStreamExt;
+use futures::{StreamExt, TryFutureExt};
+use nassun::client::{Nassun, NassunOpts};
+use nassun::package::Package;
+use nassun::PackageSpec;
 use oro_common::CorgiManifest;
 use petgraph::stable_graph::NodeIndex;
 use petgraph::visit::EdgeRef;
@@ -32,6 +38,7 @@ impl NodeMaintainerOptions {
         Self::default()
     }
 
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn cache(mut self, cache: impl AsRef<Path>) -> Self {
         self.nassun_opts = self.nassun_opts.cache(PathBuf::from(cache.as_ref()));
         self
@@ -58,6 +65,7 @@ impl NodeMaintainerOptions {
         self
     }
 
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn base_dir(mut self, path: impl AsRef<Path>) -> Self {
         self.nassun_opts = self.nassun_opts.base_dir(path);
         self
@@ -137,12 +145,14 @@ impl NodeMaintainer {
         NodeMaintainerOptions::new()
     }
 
+    #[cfg(not(target_arch = "wasm32"))]
     pub async fn resolve_manifest(
         root: CorgiManifest,
     ) -> Result<NodeMaintainer, NodeMaintainerError> {
         Self::builder().resolve_manifest(root).await
     }
 
+    #[cfg(not(target_arch = "wasm32"))]
     pub async fn resolve_spec(
         root_spec: impl AsRef<str>,
     ) -> Result<NodeMaintainer, NodeMaintainerError> {
@@ -161,6 +171,7 @@ impl NodeMaintainer {
         Ok(())
     }
 
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn to_lockfile(&self) -> Result<crate::Lockfile, NodeMaintainerError> {
         self.graph.to_lockfile()
     }
@@ -169,6 +180,7 @@ impl NodeMaintainer {
         self.graph.to_kdl()
     }
 
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn render(&self) -> String {
         self.graph.render()
     }
@@ -177,6 +189,7 @@ impl NodeMaintainer {
         self.graph.package_at_path(path)
     }
 
+    #[cfg(not(target_arch = "wasm32"))]
     pub async fn extract_to(&self, path: impl AsRef<Path>) -> Result<(), NodeMaintainerError> {
         async fn inner(me: &NodeMaintainer, path: &Path) -> Result<(), NodeMaintainerError> {
             let stream = futures::stream::iter(me.graph.inner.node_indices());

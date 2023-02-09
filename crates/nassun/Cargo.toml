@@ -23,6 +23,7 @@ serde_json = { workspace = true }
 ssri = { workspace = true }
 thiserror = { workspace = true }
 tracing = { workspace = true }
+tsify = { workspace = true, default-features = false, features = ["js"] }
 url = { workspace = true }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
@@ -35,6 +36,7 @@ which = { version = "4.0.2" }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 async-tar = { git = "https://github.com/zkat/async-tar", branch = "master", default-features = false }
+console_error_panic_hook = { workspace = true }
 js-sys = { workspace = true }
 serde-wasm-bindgen = { workspace = true }
 wasm-bindgen = { workspace = true }

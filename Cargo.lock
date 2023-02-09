@@ -288,12 +288,6 @@ checksum = "9e1b586273c5702936fe7b7d6896644d8be71e6314cfe09d3167c95f712589e8"
 
 [[package]]
 name = "base64"
-version = "0.20.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ea22880d78093b0cbe17c89f64a7d457941e65759157ec6cb31a31d652b05e5"
-
-[[package]]
-name = "base64"
 version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a4a4ddaa51a5bc52a6948f74c06d20aaaddb71924eab79b8c97a8c556e942d6a"
@@ -1214,6 +1208,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "gloo-utils"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a8e8fc851e9c7b9852508bc6e3f690f452f474417e8545ec9857b7f7377036b5"
+dependencies = [
+ "js-sys",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
 name = "h2"
 version = "0.3.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1768,6 +1775,7 @@ dependencies = [
  "async-trait",
  "bincode",
  "chrono",
+ "console_error_panic_hook",
  "dashmap",
  "futures 0.3.26",
  "js-sys",
@@ -1784,6 +1792,7 @@ dependencies = [
  "tempfile",
  "thiserror",
  "tracing",
+ "tsify",
  "url",
  "wasm-bindgen",
  "wasm-bindgen-futures",
@@ -1831,6 +1840,7 @@ dependencies = [
  "serde_json",
  "ssri",
  "thiserror",
+ "tsify",
  "unicase",
  "url",
  "wasm-bindgen",
@@ -1988,7 +1998,7 @@ dependencies = [
  "miette",
  "oro-common",
  "pretty_assertions",
- "reqwest 0.11.13",
+ "reqwest 0.11.11",
  "reqwest 0.11.14",
  "reqwest-middleware",
  "serde",
@@ -2405,11 +2415,11 @@ dependencies = [
 
 [[package]]
 name = "reqwest"
-version = "0.11.13"
-source = "git+https://github.com/tmpfs/reqwest?branch=wasm-bytes-stream#6023a96d3adaf2b6a9708b012879481cb45348fc"
+version = "0.11.11"
+source = "git+https://github.com/tmpfs/reqwest?rev=5362a073d31dc51a007edee1cea5be323bc7fafb#5362a073d31dc51a007edee1cea5be323bc7fafb"
 dependencies = [
  "async-compression",
- "base64 0.20.0",
+ "base64 0.13.1",
  "bytes 1.4.0",
  "encoding_rs",
  "futures-core",
@@ -2421,10 +2431,10 @@ dependencies = [
  "hyper-tls",
  "ipnet",
  "js-sys",
+ "lazy_static",
  "log",
  "mime",
  "native-tls",
- "once_cell",
  "percent-encoding",
  "pin-project-lite",
  "serde",
@@ -2638,6 +2648,17 @@ name = "serde_derive"
 version = "1.0.152"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "af487d118eecd09402d70a5d72551860e788df87b464af30e5ea6a38c75c541e"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "serde_derive_internals"
+version = "0.26.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "85bf8229e7920a9f636479437026331ce11aa132b4dde37d121944a44d6e5f3c"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3138,6 +3159,33 @@ name = "try-lock"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3528ecfd12c466c6f163363caf2d02a71161dd5e1cc6ae7b34207ea2d42d81ed"
+
+[[package]]
+name = "tsify"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dfafeca19605f1239ad9a30b9f15b58e53abedfbf237390506276029329a32ee"
+dependencies = [
+ "gloo-utils",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "tsify-macros",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "tsify-macros"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d637b54262b1c6b8c2c88ce30fbef4e72613cb71c0e0b6fc09747052eb59a152"
+dependencies = [
+ "darling 0.14.3",
+ "proc-macro2",
+ "quote",
+ "serde_derive_internals",
+ "syn",
+]
 
 [[package]]
 name = "typenum"

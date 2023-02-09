@@ -1,12 +1,12 @@
-use std::{
-    path::{Path, PathBuf},
-    sync::Arc,
-};
+#[cfg(not(target_arch = "wasm32"))]
+use std::path::{Path, PathBuf};
+use std::sync::Arc;
 
 #[cfg(not(target_arch = "wasm32"))]
 use http_cache_reqwest::{CACacheManager, Cache, CacheMode, HttpCache};
 #[cfg(not(target_arch = "wasm32"))]
 use reqwest::{Client, ClientBuilder};
+#[cfg(not(target_arch = "wasm32"))]
 use reqwest_middleware::ClientWithMiddleware;
 #[cfg(target_arch = "wasm32")]
 use reqwest_wasm::Client;

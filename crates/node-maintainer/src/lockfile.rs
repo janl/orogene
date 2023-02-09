@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 
 use kdl::{KdlDocument, KdlNode};
-use nassun::{Nassun, Package, PackageResolution};
+use nassun::{client::Nassun, package::Package, PackageResolution};
 use node_semver::Version;
 use oro_common::CorgiManifest;
 use oro_package_spec::PackageSpec;
 use ssri::Integrity;
 use unicase::UniCase;
 
-use crate::{DepType, IntoKdl, NodeMaintainerError};
+use crate::{error::NodeMaintainerError, DepType, IntoKdl};
 
 /// A representation of a resolved lockfile.
 #[derive(Default, Debug, Clone, PartialEq, Eq)]

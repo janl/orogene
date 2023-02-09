@@ -1,5 +1,8 @@
 use oro_common::{CorgiPackument, Packument};
+#[cfg(not(target_arch = "wasm32"))]
 use reqwest::{StatusCode, Url};
+#[cfg(target_arch = "wasm32")]
+use reqwest_wasm::{StatusCode, Url};
 
 use crate::{OroClient, OroClientError};
 

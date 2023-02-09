@@ -1,3 +1,7 @@
+pub use nassun::Nassun;
+#[cfg(not(target_arch = "wasm32"))]
+pub use nassun::{NassunError, NassunOpts};
+
 pub use edge::*;
 pub use error::*;
 pub use graph::*;
